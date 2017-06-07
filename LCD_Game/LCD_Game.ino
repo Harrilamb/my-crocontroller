@@ -122,24 +122,25 @@ int makeHeart(int lives){ // LCD art for hearts; input # of lives
   }
 }
 
-void spawn(int bound){
-  randNum=random(0,100);
-  if(randNum>=bound){
-    if(randNum%2==0){
+void spawn(int bound){ // Logic to add new enemies to far right column
+  randNum=random(0,100); // Random number for randomized spawning
+  if(randNum>=bound){ // First condition for spawn is if the number is greater than the programmed bound
+    if(randNum%2==0){ // If the number is even put spawn on the top row
       spawnRow = 0;
       altRow = 1;
-    }else{
+    }else{ // If the number is odd put spawn on the bottom row
       spawnRow = 1;
       altRow = 0;
     }
   }
-  if((rows[altRow][10]==0) && (rows[altRow][9]==0) && (rows[spawnRow][10]==0)){
+  // Logic for right four blocks so that there is always a gap for the player to move between enemies
+  if((rows[altRow][10]==0) && (rows[altRow][9]==0) && (rows[spawnRow][10]==0)){ // Check spawn location chosen by randomizer
     rows[spawnRow][10]=1;
     rows[altRow][10]=0;
-  }else if((rows[spawnRow][10]==0) && (rows[spawnRow][9]==0) && (rows[altRow][10]==0)){
+  }else if((rows[spawnRow][10]==0) && (rows[spawnRow][9]==0) && (rows[altRow][10]==0)){ // Check alternate spawn location
     rows[altRow][10]=1;
     rows[spawnRow][10]=0;
-  }else{
+  }else{ // If no room in right four blocks don't spawn the enemy
     rows[spawnRow][10]=0;
     rows[altRow][10]=0;
   }
